@@ -17,12 +17,11 @@ class Reticle extends THREE.Object3D {
 }
 
 window.gltfLoader.load(
-  "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/Fox/glTF/Fox.gltf",
-  (gltf) => {
-    const model = gltf.scene;
-    model.scale.set(0.03, 0.03, 0.03);
-    model.rotation.set(0, Math.PI, 0); // face camera
-    window.sunflower = model; // keep this name!
+  "https://immersive-web.github.io/webxr-samples/media/gltf/sunflower/sunflower.gltf",
+  function (gltf) {
+    const flower = gltf.scene.children.find((c) => c.name === "sunflower");
+    flower.castShadow = true;
+    window.sunflower = gltf.scene;
   }
 );
 
