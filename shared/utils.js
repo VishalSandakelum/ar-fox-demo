@@ -17,7 +17,7 @@ class Reticle extends THREE.Object3D {
 }
 
 window.gltfLoader.load(
-  "../models/dragon.glb", // Update this path to your actual file location
+  "./models/dragon.glb", // Update this path to your actual file location
   (gltf) => {
     const model = gltf.scene;
 
