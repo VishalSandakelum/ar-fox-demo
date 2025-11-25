@@ -17,7 +17,7 @@ class Reticle extends THREE.Object3D {
 }
 
 window.gltfLoader.load(
-  "https://immersive-web.github.io/webxr-samples/media/gltf/sunflower/sunflower.gltf",
+  "https://github.com/immersive-web/webxr-samples/blob/main/media/gltf/cave/cave.gltf",
   function (gltf) {
     const flower = gltf.scene.children.find((c) => c.name === "sunflower");
     flower.castShadow = true;
