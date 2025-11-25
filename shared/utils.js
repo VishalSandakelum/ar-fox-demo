@@ -17,7 +17,7 @@ class Reticle extends THREE.Object3D {
 }
 
 window.gltfLoader.load(
-  "./assets/dragonn.gltf",  // Use .gltf if you have the JSON file
+  "../assets/dragonn.gltf",  // Use .gltf if you have the JSON file
   (gltf) => {
     const model = gltf.scene;
     model.scale.set(0.5, 0.5, 0.5);
