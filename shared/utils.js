@@ -17,17 +17,11 @@ class Reticle extends THREE.Object3D {
 }
 
 window.gltfLoader.load(
-  "../assets/dragon.glb",  // Use .glb if you have a single binary file
-  (gltf) => {
-    const model = gltf.scene;
-    model.scale.set(0.5, 0.5, 0.5);
-    model.rotation.set(0, Math.PI, 0);
-    window.sunflower = model;
-    console.log("🐉 Dragon model loaded and ready for AR!");
-  },
-  undefined,
-  (error) => {
-    console.error("❌ Failed to load dragon model:", error);
+  "../assets/dragon.gltf",
+  function (gltf) {
+    const flower = gltf.scene.children.find((c) => c.name === "sunflower");
+    flower.castShadow = true;
+    window.sunflower = gltf.scene;
   }
 );
 
