@@ -17,25 +17,17 @@ class Reticle extends THREE.Object3D {
 }
 
 window.gltfLoader.load(
-  "./models/dragon.glb", // Update this path to your actual file location
+  "./assets/dragonn.gltf",  // Use .gltf if you have the JSON file
   (gltf) => {
     const model = gltf.scene;
-
-    // Scale adjustment - you may need to experiment with these values
     model.scale.set(0.5, 0.5, 0.5);
-
-    // Rotation to face camera
     model.rotation.set(0, Math.PI, 0);
-
-    // Keep the variable name the same for the existing placement logic
     window.sunflower = model;
-
     console.log("🐉 Dragon model loaded and ready for AR!");
   },
   undefined,
   (error) => {
     console.error("❌ Failed to load dragon model:", error);
-    // Optional: Fallback to a different model or show error message
   }
 );
 
