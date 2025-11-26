@@ -20,8 +20,10 @@ window.gltfLoader.load(
   "assets/dragon.glb",
   (gltf) => {
     const model = gltf.scene;
-    model.scale.set(0.1, 0.1, 0.1);
-    model.rotation.set(0, Math.PI, 0); // face camera
+    //model.scale.set(0.1, 0.1, 0.1);
+    //model.rotation.set(0, Math.PI, 0); // face camera
+    model.scale.set(0.5, 0.5, 0.5);
+    model.rotation.set(0, Math.PI / 2, 0);
     window.sunflower = model; // keep this name!
   },
   undefined,
