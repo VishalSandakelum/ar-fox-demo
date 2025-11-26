@@ -17,7 +17,7 @@ class Reticle extends THREE.Object3D {
 }
 
 window.gltfLoader.load(
-  "assets/dragon.glb",
+  "assets/dragon_flying.glb",
   (gltf) => {
     const model = gltf.scene;
     //model.scale.set(0.1, 0.1, 0.1);
