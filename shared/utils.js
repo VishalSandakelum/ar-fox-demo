@@ -17,11 +17,19 @@ class Reticle extends THREE.Object3D {
 }
 
 window.gltfLoader.load(
-  "https://immersive-web.github.io/webxr-samples/media/gltf/sunflower/sunflower.gltf",
+  "../assets/dragonn.gltf",  // Replace with your dragon model URL
   function (gltf) {
-    const flower = gltf.scene.children.find((c) => c.name === "sunflower");
-    flower.castShadow = true;
-    window.sunflower = gltf.scene;
+    // Adjust scale if needed
+    gltf.scene.scale.set(0.5, 0.5, 0.5);
+    
+    // Enable shadows for all meshes in the dragon
+    gltf.scene.traverse((node) => {
+      if (node.isMesh) {
+        node.castShadow = true;
+      }
+    });
+    
+    window.sunflower = gltf.scene;  // Keep variable name or change throughout
   }
 );
 
