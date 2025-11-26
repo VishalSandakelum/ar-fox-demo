@@ -17,7 +17,7 @@ class Reticle extends THREE.Object3D {
 }
 
 window.gltfLoader.load(
-  "../assets/dragonn.gltf",  // Replace with your dragon model URL
+  "assets/dragonn.gltf",  // Replace with your dragon model URL
   function (gltf) {
     // Adjust scale if needed
     gltf.scene.scale.set(0.5, 0.5, 0.5);
