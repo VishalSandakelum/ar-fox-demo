@@ -17,19 +17,16 @@ class Reticle extends THREE.Object3D {
 }
 
 window.gltfLoader.load(
-  "../assets/dragonn.gltf",  // Replace with your dragon model URL
-  function (gltf) {
-    // Adjust scale if needed
-    gltf.scene.scale.set(0.5, 0.5, 0.5);
-    
-    // Enable shadows for all meshes in the dragon
-    gltf.scene.traverse((node) => {
-      if (node.isMesh) {
-        node.castShadow = true;
-      }
-    });
-    
-    window.sunflower = gltf.scene;  // Keep variable name or change throughout
+  "assets/dragon.glb",
+  (gltf) => {
+    const model = gltf.scene;
+    model.scale.set(0.1, 0.1, 0.1);
+    model.rotation.set(0, Math.PI, 0); // face camera
+    window.sunflower = model; // keep this name!
+  },
+  undefined,
+  (error) => {
+    console.error("An error occurred while loading the model.", error);
   }
 );
 
