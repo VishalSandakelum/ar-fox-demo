@@ -16,7 +16,7 @@ class Reticle extends THREE.Object3D {
   }
 }
 
-window.gltfLoader.load(
+/*window.gltfLoader.load(
   "assets/dragon_flying.glb",
   (gltf) => {
     const model = gltf.scene;
@@ -56,6 +56,15 @@ window.gltfLoader.load(
   undefined,
   (error) => {
     console.error("An error occurred while loading the model.", error);
+  }
+);*/
+
+window.gltfLoader.load(
+  "https://immersive-web.github.io/webxr-samples/media/gltf/sunflower/sunflower.gltf",
+  function (gltf) {
+    const flower = gltf.scene.children.find((c) => c.name === "sunflower");
+    flower.castShadow = true;
+    window.sunflower = gltf.scene;
   }
 );
 
