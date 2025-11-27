@@ -35,7 +35,7 @@ window.gltfLoader.load(
     const center = box.getCenter(new THREE.Vector3());
 
     // Reposition the model inside the wrapper so its base is at the origin
-   // model.position.set(-center.x, -box.min.y, -center.z);
+    model.position.set(-center.x, -box.min.y, -center.z);
 
     wrapper.add(model);
 
