@@ -61,7 +61,17 @@ class App {
     if (window.sunflower) {
       const clone = window.sunflower.clone();
       clone.position.copy(this.reticle.position);
+
+      // Clone the animation mixer
+      if (window.sunflower.mixer) {
+        const mixer = new THREE.AnimationMixer(clone.children[0]);
+        const action = mixer.clipAction(window.sunflower.animations[0]);
+        action.play();
+        clone.mixer = mixer;
+      }
+
       this.scene.add(clone);
+      this.placedObjects.push(clone);
     }
   };
 
@@ -101,6 +111,13 @@ class App {
         this.reticle.updateMatrixWorld(true);
       }
 
+      const delta = this.clock.getDelta();
+      this.placedObjects.forEach((object) => {
+        if (object.mixer) {
+          object.mixer.update(delta);
+        }
+      });
+
       this.renderer.render(this.scene, this.camera);
     }
   };
@@ -117,6 +134,8 @@ class App {
     this.scene = DemoUtils.createLitScene();
     this.reticle = new Reticle();
     this.scene.add(this.reticle);
+    this.placedObjects = [];
+    this.clock = new THREE.Clock();
 
     this.camera = new THREE.PerspectiveCamera();
     this.camera.matrixAutoUpdate = false;
