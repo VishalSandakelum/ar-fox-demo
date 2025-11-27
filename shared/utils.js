@@ -16,7 +16,7 @@ class Reticle extends THREE.Object3D {
   }
 }
 
-/*window.gltfLoader.load(
+window.gltfLoader.load(
   "assets/dragon_flying.glb",
   (gltf) => {
     const model = gltf.scene;
@@ -35,7 +35,7 @@ class Reticle extends THREE.Object3D {
     const center = box.getCenter(new THREE.Vector3());
 
     // Reposition the model inside the wrapper so its base is at the origin
-    model.position.set(-center.x, -box.min.y, -center.z);
+   // model.position.set(-center.x, -box.min.y, -center.z);
 
     wrapper.add(model);
 
@@ -56,15 +56,6 @@ class Reticle extends THREE.Object3D {
   undefined,
   (error) => {
     console.error("An error occurred while loading the model.", error);
-  }
-);*/
-
-window.gltfLoader.load(
-  "assets/dragon_flying.glb",
-  function (gltf) {
-    const flower = gltf.scene.children.find((c) => c.name === "sunflower");
-    flower.castShadow = true;
-    window.sunflower = gltf.scene;
   }
 );
 
