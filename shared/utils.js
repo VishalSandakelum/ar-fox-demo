@@ -21,6 +21,7 @@ window.gltfLoader.load(
   (gltf) => {
     const model = gltf.scene;
     const animations = gltf.animations;
+
     model.scale.set(0.5, 0.5, 0.5);
 
     // Use a wrapper group to normalize the model's position

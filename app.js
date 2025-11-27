@@ -12,6 +12,10 @@
   }
 })();
 
+
+const TARGET_Y_RAISE = 0.2;
+const FLY_UP_SPEED = 0.5;
+
 class App {
   activateXR = async () => {
     try {
@@ -61,6 +65,7 @@ class App {
     if (window.sunflower) {
       const clone = window.sunflower.clone();
       clone.position.copy(this.reticle.position);
+
 
       // Clone the animation mixer
       if (window.sunflower.mixer) {
@@ -113,6 +118,7 @@ class App {
 
       const delta = this.clock.getDelta();
       this.placedObjects.forEach((object) => {
+
         if (object.mixer) {
           object.mixer.update(delta);
         }
