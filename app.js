@@ -12,6 +12,9 @@
   }
 })();
 
+const TARGET_Y_RAISE = 0.2;
+const ANIMATION_SPEED = 0.01;
+
 class App {
   activateXR = async () => {
     try {
@@ -61,7 +64,10 @@ class App {
     if (window.sunflower) {
       const clone = window.sunflower.clone();
       clone.position.copy(this.reticle.position);
+      clone.isAnimating = true;
+      clone.targetY = clone.position.y + TARGET_Y_RAISE;
       this.scene.add(clone);
+      this.animatingObjects.push(clone);
     }
   };
 
@@ -101,6 +107,19 @@ class App {
         this.reticle.updateMatrixWorld(true);
       }
 
+      this.animatingObjects.forEach((object) => {
+        if (object.isAnimating) {
+          object.position.y += ANIMATION_SPEED;
+          if (object.position.y >= object.targetY) {
+            object.position.y = object.targetY;
+            object.isAnimating = false;
+          }
+        }
+      });
+      this.animatingObjects = this.animatingObjects.filter(
+        (object) => object.isAnimating
+      );
+
       this.renderer.render(this.scene, this.camera);
     }
   };
@@ -117,6 +136,7 @@ class App {
     this.scene = DemoUtils.createLitScene();
     this.reticle = new Reticle();
     this.scene.add(this.reticle);
+    this.animatingObjects = [];
 
     this.camera = new THREE.PerspectiveCamera();
     this.camera.matrixAutoUpdate = false;
