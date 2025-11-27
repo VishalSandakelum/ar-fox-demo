@@ -20,11 +20,37 @@ window.gltfLoader.load(
   "assets/dragon_flying.glb",
   (gltf) => {
     const model = gltf.scene;
-    //model.scale.set(0.1, 0.1, 0.1);
-    //model.rotation.set(0, Math.PI, 0); // face camera
+    const animations = gltf.animations;
     model.scale.set(0.5, 0.5, 0.5);
-    model.rotation.set(0, Math.PI / 4, 0);
-    window.sunflower = model; // keep this name!
+
+    // Use a wrapper group to normalize the model's position
+    const wrapper = new THREE.Group();
+
+    // Calculate the bounding box to find the model's center and size
+    const box = new THREE.Box3().setFromObject(model);
+    const center = box.getCenter(new THREE.Vector3());
+
+    // Reposition the model inside the wrapper so its base is at the origin
+    model.position.set(-center.x, -box.min.y, -center.z);
+
+    // Correct the model's orientation
+    model.rotation.x = Math.PI / 2; // Rotate to face forward
+
+    wrapper.add(model);
+
+    // Apply rotation to the wrapper
+    wrapper.rotation.set(0, Math.PI / 4, 0);
+
+    // Set up the animation mixer
+    if (animations && animations.length) {
+      const mixer = new THREE.AnimationMixer(model);
+      const action = mixer.clipAction(animations[0]);
+      action.play();
+      wrapper.mixer = mixer; // Attach mixer to the wrapper
+      wrapper.animations = animations; // Store animations
+    }
+
+    window.sunflower = wrapper; // keep this name!
   },
   undefined,
   (error) => {

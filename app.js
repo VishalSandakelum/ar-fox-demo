@@ -12,6 +12,9 @@
   }
 })();
 
+const TARGET_Y_RAISE = 0.2;
+const FLY_UP_SPEED = 0.5;
+
 class App {
   activateXR = async () => {
     try {
@@ -61,7 +64,19 @@ class App {
     if (window.sunflower) {
       const clone = window.sunflower.clone();
       clone.position.copy(this.reticle.position);
+      clone.isAnimating = true;
+      clone.targetY = clone.position.y + TARGET_Y_RAISE;
+
+      // Clone the animation mixer
+      if (window.sunflower.mixer) {
+        const mixer = new THREE.AnimationMixer(clone.children[0]);
+        const action = mixer.clipAction(window.sunflower.animations[0]);
+        action.play();
+        clone.mixer = mixer;
+      }
+
       this.scene.add(clone);
+      this.placedObjects.push(clone);
     }
   };
 
@@ -101,6 +116,20 @@ class App {
         this.reticle.updateMatrixWorld(true);
       }
 
+      const delta = this.clock.getDelta();
+      this.placedObjects.forEach((object) => {
+        if (object.isAnimating) {
+          object.position.y += FLY_UP_SPEED * delta;
+          if (object.position.y >= object.targetY) {
+            object.position.y = object.targetY;
+            object.isAnimating = false;
+          }
+        }
+        if (object.mixer) {
+          object.mixer.update(delta);
+        }
+      });
+
       this.renderer.render(this.scene, this.camera);
     }
   };
@@ -117,6 +146,8 @@ class App {
     this.scene = DemoUtils.createLitScene();
     this.reticle = new Reticle();
     this.scene.add(this.reticle);
+    this.placedObjects = [];
+    this.clock = new THREE.Clock();
 
     this.camera = new THREE.PerspectiveCamera();
     this.camera.matrixAutoUpdate = false;
