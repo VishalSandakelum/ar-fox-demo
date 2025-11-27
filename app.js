@@ -12,6 +12,7 @@
   }
 })();
 
+
 const TARGET_Y_RAISE = 0.2;
 const FLY_UP_SPEED = 0.5;
 
@@ -120,11 +121,13 @@ class App {
       this.placedObjects.forEach((object) => {
         if (object.isAnimating) {
           object.position.y += FLY_UP_SPEED * delta;
+
           if (object.position.y >= object.targetY) {
             object.position.y = object.targetY;
             object.isAnimating = false;
           }
         }
+
         if (object.mixer) {
           object.mixer.update(delta);
         }

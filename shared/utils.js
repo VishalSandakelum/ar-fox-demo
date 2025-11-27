@@ -21,6 +21,7 @@ window.gltfLoader.load(
   (gltf) => {
     const model = gltf.scene;
     const animations = gltf.animations;
+
     model.scale.set(0.5, 0.5, 0.5);
 
     // Use a wrapper group to normalize the model's position
@@ -36,6 +37,7 @@ window.gltfLoader.load(
     // Correct the model's orientation
     model.rotation.x = Math.PI / 2; // Rotate to face forward
 
+
     wrapper.add(model);
 
     // Apply rotation to the wrapper
@@ -49,7 +51,6 @@ window.gltfLoader.load(
       wrapper.mixer = mixer; // Attach mixer to the wrapper
       wrapper.animations = animations; // Store animations
     }
-
     window.sunflower = wrapper; // keep this name!
   },
   undefined,
