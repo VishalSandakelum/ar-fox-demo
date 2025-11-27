@@ -12,7 +12,9 @@
   }
 })();
 
+
 const INITIAL_Y_OFFSET = -1;
+
 const TARGET_Y_RAISE = 0.2;
 const ANIMATION_SPEED = 0.01;
 
@@ -65,9 +67,10 @@ class App {
     if (window.sunflower) {
       const clone = window.sunflower.clone();
       clone.position.copy(this.reticle.position);
-      clone.position.y += INITIAL_Y_OFFSET;
+
       clone.isAnimating = true;
-      clone.targetY = this.reticle.position.y + TARGET_Y_RAISE;
+      clone.targetY = clone.position.y + TARGET_Y_RAISE;
+
       this.scene.add(clone);
       this.animatingObjects.push(clone);
     }
