@@ -65,8 +65,7 @@ class App {
     if (window.sunflower) {
       const clone = window.sunflower.clone();
       clone.position.copy(this.reticle.position);
-      clone.isAnimating = true;
-      clone.targetY = clone.position.y + TARGET_Y_RAISE;
+
 
       // Clone the animation mixer
       if (window.sunflower.mixer) {
@@ -119,14 +118,6 @@ class App {
 
       const delta = this.clock.getDelta();
       this.placedObjects.forEach((object) => {
-        if (object.isAnimating) {
-          object.position.y += FLY_UP_SPEED * delta;
-
-          if (object.position.y >= object.targetY) {
-            object.position.y = object.targetY;
-            object.isAnimating = false;
-          }
-        }
 
         if (object.mixer) {
           object.mixer.update(delta);

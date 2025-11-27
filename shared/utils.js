@@ -27,16 +27,15 @@ window.gltfLoader.load(
     // Use a wrapper group to normalize the model's position
     const wrapper = new THREE.Group();
 
-    // Calculate the bounding box to find the model's center and size
+    // Correct the model's orientation first
+    model.rotation.x = Math.PI / 2;
+
+    // Then, calculate the bounding box
     const box = new THREE.Box3().setFromObject(model);
     const center = box.getCenter(new THREE.Vector3());
 
     // Reposition the model inside the wrapper so its base is at the origin
     model.position.set(-center.x, -box.min.y, -center.z);
-
-    // Correct the model's orientation
-    model.rotation.x = Math.PI / 2; // Rotate to face forward
-
 
     wrapper.add(model);
 
@@ -51,6 +50,7 @@ window.gltfLoader.load(
       wrapper.mixer = mixer; // Attach mixer to the wrapper
       wrapper.animations = animations; // Store animations
     }
+
     window.sunflower = wrapper; // keep this name!
   },
   undefined,
